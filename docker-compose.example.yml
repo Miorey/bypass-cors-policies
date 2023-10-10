@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  bypass-cors-policies:
+    image: bypass-cors-policies
+    environment:
+      - SERVER_NAME=https://www.example.com
+    volumes:
+      - ./storage:/usr/src/app/storage
+    ports:
+      - "3001:3000"
