@@ -9,7 +9,7 @@ on:
 jobs:
 
   test-build:
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
       run: docker build . --file Dockerfile
 
   build_and_push:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     name: Build and push Docker image
     runs-on: ubuntu-latest
     steps:
