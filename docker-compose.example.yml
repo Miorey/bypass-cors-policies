@@ -2,7 +2,7 @@ version: '3'
 
 services:
   bypass-cors-policies:
-    image: bypass-cors-policies
+    image: miorey/bypass-cors-policies
     environment:
       - SERVER_NAME=https://www.example.com
     volumes:
