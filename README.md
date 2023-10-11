@@ -4,6 +4,15 @@ Bypass CORS (Cross-Origin Resource Sharing) policies of a remote server. This to
 
 > **Warning**: Use responsibly! Only use this for legal and legitimate purposes. Bypassing CORS on servers without permission can be illegal and unethical.
 
+## How It Works
+
+When you set `SERVER_NAME` to a specific value, any route accessed on this tool will map directly to the same route on the specified server. For example:
+
+If `SERVER_NAME` is set to `https://www.example.com`, accessing 
+`https://localhost:3000/hello/world.json` in your browser or through 
+a tool will fetch and return the content 
+from `https://www.example.com/hello/world.json`. The file, along with its path, will be stored locally. Thus, upon subsequent requests, there will be no call to `https://www.example.com`.
+
 ## Local Setup
 
 1. Clone the repository:
