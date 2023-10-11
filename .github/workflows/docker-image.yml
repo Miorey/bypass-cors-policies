@@ -42,5 +42,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           file: ./Dockerfile
-          tags: miorey/bypass-cors-policies:build-${{ github.run_number }}
+          tags: miorey/bypass-cors-policies:v1
           push: true
