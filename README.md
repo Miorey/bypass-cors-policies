@@ -58,6 +58,7 @@ from `https://www.example.com/hello/world.json`. The file, along with its path, 
         ports:
           - "3001:3000"
     ```
+By default, the timout to the remote call is 2sec this value can be change through `TIMEOUT` env var
 
 2. Run the Docker Compose:
     ```bash
