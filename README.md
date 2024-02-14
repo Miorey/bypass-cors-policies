@@ -39,7 +39,7 @@ from `https://www.example.com/hello/world.json`. The file, along with its path, 
 
 5. Start the application:
     ```bash
-    node start
+    npm start
     ```
 
 ## Docker Compose Setup
