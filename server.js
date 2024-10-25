@@ -1,17 +1,22 @@
-const express = require(`express`)
-const morgan = require(`morgan`)
-const fsPromises = require(`fs`).promises
-const fs = require(`fs`)
-const path = require(`path`)
-const cors = require(`cors`)
-require(`dotenv`).config()
+import express from 'express'
+import morgan from 'morgan'
+import { promises as fsPromises, existsSync } from 'fs'
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import fetch from 'node-fetch'
+
+dotenv.config()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const app = express()
 const PORT = process.env.PORT ?? 3000
 const TIMEOUT = process.env.TIMEOUT ?? 2000
 const SERVER_NAME = process.env.SERVER_NAME
 
-const fetch = require(`node-fetch`)
 
 // Setup logging
 app.use(morgan(`dev`))
@@ -21,8 +26,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 const storageDir = path.join(__dirname, `storage`)
-if (!fs.existsSync(storageDir)) {
-    fs.mkdirSync(storageDir)
+if (!existsSync(storageDir)) {
+    fsPromises.mkdir(storageDir, { recursive: true }).catch(console.error)
 }
 
 app.use(cors())
@@ -52,9 +57,9 @@ async function createFile(req)  {
 
 app.use(`/`, async (req, res, next) => {
     const localFilePath = path.join(storageDir, encodeURIComponent(req.url))
-    if (!fs.existsSync(localFilePath)){
+    if (!existsSync(localFilePath)) {
         const err = await createFile(req)
-        if (err){
+        if (err) {
             console.warn(`Error ${err} on ${SERVER_NAME}${req.url}`)
             res.status(err)
             return next(err)
