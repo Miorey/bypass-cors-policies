@@ -5,6 +5,7 @@ services:
     image: miorey/bypass-cors-policies
     environment:
       - SERVER_NAME=https://www.example.com
+      - PRESERVE_STORAGE=true
     volumes:
       - ./storage:/usr/src/app/storage
     ports:

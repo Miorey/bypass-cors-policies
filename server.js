@@ -16,6 +16,7 @@ const app = express()
 const PORT = process.env.PORT ?? 3000
 const TIMEOUT = process.env.TIMEOUT ?? 2000
 const SERVER_NAME = process.env.SERVER_NAME
+const PRESERVE_STORAGE = process.env.PRESERVE_STORAGE === 'true' || false;
 
 
 // Setup logging
@@ -44,9 +45,8 @@ async function createFile(req)  {
     const response = await Promise.race([
         fetch(`${SERVER_NAME}${req.url}`),
         timeout
-    ]).catch(() => {
-        return {ok: false, status: 408}
-    })
+    ]).catch(() => ({ ok: false, status: 408 }));
+
     if (!response.ok) {
         return response.status
     }
@@ -65,8 +65,12 @@ app.use(`/`, async (req, res, next) => {
             return next(err)
         }
     }
-    // Respond with the file
-    res.sendFile(localFilePath)
+
+    res.sendFile(localFilePath, () => {
+        if (!PRESERVE_STORAGE) {
+            fsPromises.unlink(localFilePath).catch(console.error);
+        }
+    });
 })
 
 app.listen(PORT, () => {

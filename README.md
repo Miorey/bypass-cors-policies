@@ -53,12 +53,14 @@ from `https://www.example.com/hello/world.json`. The file, along with its path, 
         image: miorey/bypass-cors-policies
         environment:
           - SERVER_NAME=https://www.example.com
+          - PRESERVE_STORAGE=true
         volumes:
           - ./storage:/usr/src/app/storage
         ports:
           - "3001:3000"
     ```
-By default, the timout to the remote call is 2sec this value can be change through `TIMEOUT` env var
+By default, the timout to the remote call is 2sec this value can be change through `TIMEOUT` env var.
+You can decide to not save the file in the storage directory by removing the `PRESERVE_STORAGE` parameter.
 
 2. Run the Docker Compose:
     ```bash
