@@ -16,7 +16,7 @@ const app = express()
 const PORT = process.env.PORT ?? 3000
 const TIMEOUT = process.env.TIMEOUT ?? 2000
 const SERVER_NAME = process.env.SERVER_NAME
-const PRESERVE_STORAGE = process.env.PRESERVE_STORAGE === 'true' || false;
+const PRESERVE_STORAGE = (process.env.PRESERVE_STORAGE ?? 'true') === 'true';
 
 
 // Setup logging
